@@ -211,9 +211,10 @@ class SimpleActionClient:
         self.gh = None
 
     def _handle_transition(self, gh):
-
-        if gh != self.gh:
-            rospy.logerr("Got a transition callback on a goal handle that we're not tracking")
+        if gh is not None and gh != self.gh:
+            rospy.logdebug(
+                "Got a transition callback on a goal handle that we're not tracking"
+            )
             return
 
         comm_state = gh.get_comm_state()
